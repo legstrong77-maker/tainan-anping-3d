@@ -1,0 +1,211 @@
+<title>安平地名誌</title>
+<meta name="description" content="台南地名誌 EP.01：可以自由走動的 3D 動漫風安平，附知識導覽與旁白字幕。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap">
+<style>
+/* 版面概念：全螢幕 3D 場景為底，介面是「紅磚＋紙本導覽手冊」的浮貼卡片；字幕走影片規格置底置中 */
+:root{
+  --bg:#12151b;
+  --paper:rgba(251,245,234,.9);
+  --paper-solid:#fbf5ea;
+  --ink:#2a1f1a;
+  --muted:#6e5d52;
+  --line:rgba(90,52,34,.2);
+  --brick:#a8432c;
+  --brick-ink:#fff6ee;
+  --sea:#1d5f78;
+  --gold:#b98a2a;
+  --chip:rgba(168,67,44,.1);
+  --shadow:0 10px 30px rgba(20,10,5,.25);
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;
+  --f-kai:"LXGW WenKai TC","DFKai-SB","BiauKai","Kaiti TC","STKaiti",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:rgba(26,20,18,.86);--paper-solid:#1a1412;--ink:#f4e9dc;--muted:#bba99a;--line:rgba(255,230,210,.16);
+    --brick:#d4644a;--brick-ink:#1a0f0b;--sea:#72b6d0;--gold:#e0b354;--chip:rgba(212,100,74,.16);--shadow:0 10px 30px rgba(0,0,0,.5);color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:rgba(26,20,18,.86);--paper-solid:#1a1412;--ink:#f4e9dc;--muted:#bba99a;--line:rgba(255,230,210,.16);
+  --brick:#d4644a;--brick-ink:#1a0f0b;--sea:#72b6d0;--gold:#e0b354;--chip:rgba(212,100,74,.16);--shadow:0 10px 30px rgba(0,0,0,.5);color-scheme:dark;
+}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--f-body);-webkit-user-select:none;user-select:none;touch-action:none}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;outline:none}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#ui{position:fixed;inset:0;pointer-events:none;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 14px)}
+#ui.hide>*:not(#sub):not(#chapter):not(#toast){display:none!important}
+#ui.cine>*:not(#sub):not(#chapter){display:none!important}
+#ui.touring #brand,#ui.touring #tools,#ui.touring #spots,#ui.touring #card,#ui.touring #cross,#ui.touring #touch{display:none!important}
+#fade{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:3}
+.panel{background:var(--paper);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:10px}
+
+/* 左上：品牌章 */
+#brand{position:absolute;left:16px;top:calc(env(safe-area-inset-top,0px) + 14px);display:flex;gap:10px;align-items:center;padding:8px 14px 8px 8px;pointer-events:auto}
+.seal{width:46px;height:46px;background:var(--brick);color:var(--brick-ink);font-family:var(--f-display);font-weight:900;font-size:17px;line-height:1.05;display:grid;place-items:center;border-radius:6px;writing-mode:vertical-rl;letter-spacing:.08em;box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+.series{font-size:11px;letter-spacing:.18em;color:var(--muted)}
+.series b{color:var(--brick);font-weight:700;margin-left:4px}
+#area{font-family:var(--f-display);font-weight:900;font-size:18px;letter-spacing:.04em;margin-top:2px}
+#clock{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:1px}
+
+/* 右上：工具列 */
+#tools{position:absolute;right:16px;top:calc(env(safe-area-inset-top,0px) + 14px);display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;max-width:min(560px,calc(100% - 32px));pointer-events:auto}
+.seg{display:flex;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:6px 10px;border-radius:7px;font-size:13px;color:var(--muted)}
+.seg button.on{background:var(--brick);color:var(--brick-ink);font-weight:700}
+.seg .lbl{font-size:10px;letter-spacing:.14em;color:var(--muted);align-self:center;padding:0 6px 0 4px}
+.tbtn{border:1px solid var(--line);background:var(--paper);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:10px;padding:0 12px;height:38px;font-size:13px;display:flex;align-items:center;gap:6px;box-shadow:var(--shadow)}
+.tbtn.primary{background:var(--brick);color:var(--brick-ink);border-color:transparent;font-weight:700}
+.tbtn.icon{width:38px;padding:0;justify-content:center;font-size:15px}
+
+/* 左下：景點 */
+#spots{position:absolute;left:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 6px;width:min(300px,calc(100% - 32px));pointer-events:auto}
+#spots h4{grid-column:1/-1;margin:0 0 4px;font-size:11px;letter-spacing:.2em;color:var(--muted);font-weight:500}
+#spots button{border:0;background:transparent;text-align:left;padding:5px 6px;border-radius:6px;font-size:13px;display:flex;gap:7px;align-items:baseline;min-width:0}
+#spots button:hover{background:var(--chip)}
+#spots kbd{font-family:var(--f-body);font-size:10px;font-weight:700;color:var(--brick);border:1px solid var(--line);border-radius:4px;padding:0 4px;min-width:10px;text-align:center}
+#spots span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 右側：知識卡 */
+#card{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:min(300px,calc(100% - 32px));padding:16px 18px 14px;pointer-events:none;transition:opacity .4s}
+#card .era{font-size:11px;letter-spacing:.16em;color:var(--brick);font-weight:700}
+#card h3{font-family:var(--f-display);font-weight:900;font-size:22px;margin:4px 0 6px;text-wrap:balance}
+#card .en{font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px}
+#card p{font-size:13.5px;line-height:1.75;margin:0}
+#card .tag{display:inline-block;margin-top:10px;font-size:11px;color:var(--sea);border:1px solid currentColor;border-radius:999px;padding:1px 8px}
+
+/* 字幕與章節卡 */
+#sub{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 40px);width:min(980px,calc(100% - 32px));text-align:center;pointer-events:none}
+#sub span{display:inline;font-family:var(--f-body);font-weight:700;font-size:clamp(17px,2.3vw,27px);line-height:1.6;color:#fff;background:rgba(10,8,8,.52);padding:.12em .5em;-webkit-box-decoration-break:clone;box-decoration-break:clone;border-radius:4px;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+#sub span:empty{display:none}
+#chapter{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;transition:opacity .9s}
+#chapter .box{display:flex;gap:18px;align-items:center;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.55)}
+#chapter .num{font-family:var(--f-display);font-size:13px;letter-spacing:.3em;writing-mode:vertical-rl;border-left:1px solid rgba(255,255,255,.6);padding-left:10px}
+#chapter .ttl{font-family:var(--f-display);font-weight:900;font-size:clamp(34px,6vw,72px);letter-spacing:.12em;line-height:1.1}
+#chapter .sub2{font-family:var(--f-kai);font-size:clamp(15px,2vw,22px);letter-spacing:.14em;margin-top:8px;opacity:.95}
+#chapter .stamp{width:62px;height:62px;border:3px solid #e0573c;color:#e0573c;font-family:var(--f-display);font-weight:900;font-size:22px;display:grid;place-items:center;writing-mode:vertical-rl;border-radius:6px;transform:rotate(-6deg);background:rgba(255,245,235,.08)}
+
+#cross{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 0 1.5px rgba(0,0,0,.35)}
+#toast{position:absolute;left:50%;top:calc(env(safe-area-inset-top,0px) + 86px);transform:translateX(-50%);padding:8px 16px;font-size:14px;font-weight:500;opacity:0;transition:opacity .35s;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1}
+#tourbar{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 10px);display:flex;gap:8px;align-items:center;padding:5px 8px;pointer-events:auto;font-size:12px}
+#tourbar .prog{width:min(260px,40vw);height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+#tourbar .prog i{display:block;height:100%;width:0;background:var(--brick)}
+#tourbar button{border:0;background:transparent;padding:4px 8px;border-radius:6px;font-size:12px}
+#tourbar button:hover{background:var(--chip)}
+
+/* 說明 */
+#help{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100% - 32px));max-height:calc(100% - 120px);overflow:auto;padding:20px 22px;pointer-events:auto}
+#help h2{font-family:var(--f-display);font-weight:900;margin:0 0 10px;font-size:22px}
+#help dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
+#help dt{font-weight:700;color:var(--brick);white-space:nowrap}
+#help dd{margin:0;color:var(--ink)}
+#help .close{margin-top:14px}
+
+/* 手機觸控 */
+#touch{position:absolute;inset:0;pointer-events:none;display:none}
+.touch #touch{display:block}
+.touch #cross{display:none}
+#stick{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:2px solid rgba(255,255,255,.55);background:rgba(0,0,0,.12);display:none}
+#stick i{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.75)}
+#tbtns{position:absolute;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 110px);display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+#tbtns button{width:54px;height:54px;border-radius:50%;border:1px solid var(--line);background:var(--paper);font-size:14px;font-weight:700;color:var(--ink)}
+
+/* 開場 */
+#start{position:fixed;inset:0;z-index:5;display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 16px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);background:radial-gradient(120% 90% at 70% 30%,rgba(250,190,140,.28),rgba(20,16,18,.72)),rgba(18,14,14,.35);transition:opacity .8s}
+#start.gone{opacity:0;pointer-events:none}
+#start .sheet{display:flex;gap:26px;align-items:stretch;max-width:760px;width:100%;padding:26px 28px;border-radius:14px}
+#start .vt{writing-mode:vertical-rl;font-family:var(--f-display);font-weight:900;font-size:clamp(64px,11vw,112px);line-height:1;color:var(--brick);letter-spacing:.06em;border-right:1px solid var(--line);padding-right:18px;display:flex;align-items:center}
+#start .vt small{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:.3em;margin-top:18px}
+#start .body{display:flex;flex-direction:column;gap:12px;min-width:0}
+#start .kicker{font-size:12px;letter-spacing:.24em;color:var(--muted)}
+#start h1{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,3.2vw,32px);margin:0;line-height:1.35;text-wrap:balance}
+#start p{margin:0;font-size:14.5px;line-height:1.8;max-width:34em}
+#start .names{font-family:var(--f-kai);font-size:15px;color:var(--sea);letter-spacing:.06em}
+#start .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+#start .keys{font-size:12px;color:var(--muted);line-height:1.7}
+#loading{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+#loading .bar{height:3px;background:var(--line);border-radius:2px;margin-top:5px;overflow:hidden}
+#loading .bar i{display:block;height:100%;width:0;background:var(--brick);transition:width .2s}
+#start button:disabled{opacity:.45;cursor:progress}
+@media (max-width:640px){
+  #start .sheet{flex-direction:column;gap:14px;padding:20px}
+  #start .vt{writing-mode:horizontal-tb;border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px;font-size:56px;gap:12px;align-items:baseline}
+  #start .vt small{margin:0}
+  #spots{grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100% - 32px);bottom:calc(env(safe-area-inset-bottom,0px) + 8px);padding:6px}
+  #spots h4{display:none}
+  #spots button{font-size:12px;padding:3px 4px}
+  #card{top:auto;bottom:190px;transform:none;left:16px;right:16px;width:auto}
+  #brand .seal{width:38px;height:38px;font-size:14px}
+  #area{font-size:15px}
+  #tools{top:calc(env(safe-area-inset-top,0px) + 70px);left:16px;right:16px;max-width:none;justify-content:flex-start}
+  .seg button{padding:5px 8px}
+  #sub{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
+}
+@media (prefers-reduced-motion: reduce){#start,#chapter,#card,#toast{transition:none}}
+</style>
+<canvas id="c" tabindex="0" aria-label="3D 安平場景"></canvas>
+<div id="ui">
+  <header id="brand" class="panel">
+    <div class="seal" aria-hidden="true">安平</div>
+    <div>
+      <div class="series">台南地名誌<b>EP.01</b></div>
+      <div id="area">安平</div>
+      <div id="clock">午後</div>
+    </div>
+  </header>
+  <nav id="tools" aria-label="設定">
+    <div class="seg panel" id="todSeg" role="group" aria-label="時段"><span class="lbl">時段</span><button id="tod-noon" data-tod="noon">午後</button><button id="tod-dusk" data-tod="dusk">夕照</button><button id="tod-night" data-tod="night">夜晚</button></div>
+    <div class="seg panel" id="qSeg" role="group" aria-label="畫質"><span class="lbl">畫質</span><button id="q-high" data-q="high">高</button><button id="q-mid" data-q="mid">中</button><button id="q-low" data-q="low">低</button></div>
+    <button class="tbtn primary" id="btnTour" title="導覽影片模式（T）">▶ 導覽影片</button>
+    <button class="tbtn icon" id="btnMute" title="靜音（M）" aria-label="靜音">♪</button>
+    <button class="tbtn icon" id="btnHelp" title="操作說明" aria-label="操作說明">?</button>
+  </nav>
+  <aside id="card" class="panel" hidden aria-live="polite"><div class="era"></div><h3></h3><div class="en"></div><p></p><span class="tag"></span></aside>
+  <div id="spots" class="panel"><h4>傳送景點</h4></div>
+  <div id="sub" aria-live="polite"><span></span></div>
+  <div id="chapter" style="opacity:0"><div class="box"><div class="stamp">安平</div><div><div class="ttl"></div><div class="sub2"></div></div><div class="num"></div></div></div>
+  <div id="toast" class="panel"></div>
+  <div id="cross"></div>
+  <div id="tourbar" class="panel" hidden><button id="tourPrev">⏮ 上一段</button><div class="prog"><i></i></div><span id="tourTime">0:00</span><button id="tourNext">下一段 ⏭</button><button id="tourVoice">旁白：瀏覽器預覽聲</button><button id="tourStop">結束導覽</button></div>
+  <section id="help" class="panel" hidden>
+    <h2>操作說明</h2>
+    <dl>
+      <dt>WASD／方向鍵</dt><dd>走路（Shift 跑步）</dd>
+      <dt>滑鼠</dt><dd>點一下畫面鎖定視角後轉頭，Esc 解除</dd>
+      <dt>空白鍵</dt><dd>跳躍；飛行中為上升</dd>
+      <dt>F</dt><dd>切換飛行（C 下降）</dd>
+      <dt>1–9、0</dt><dd>傳送到各景點</dd>
+      <dt>T</dt><dd>開始／結束導覽影片（旁白＋字幕＋運鏡）</dd>
+      <dt>N</dt><dd>切換時段：午後、夕照、夜晚</dd>
+      <dt>H</dt><dd>隱藏介面（錄影用，字幕保留）</dd>
+      <dt>M</dt><dd>靜音</dd>
+      <dt>手機</dt><dd>左半邊拖曳走路、右半邊拖曳轉頭</dd>
+    </dl>
+    <button class="tbtn close" id="helpClose">知道了</button>
+  </section>
+  <div id="touch"><div id="stick"><i></i></div><div id="tbtns"><button id="tJump">跳</button><button id="tFly">飛</button></div></div>
+</div>
+<div id="fade"></div>
+<div id="start">
+  <div class="sheet panel">
+    <div class="vt">安平<small>ANPING</small></div>
+    <div class="body">
+      <div class="kicker">台南地名誌　第一集</div>
+      <h1>從台窩灣、大員到安平，走進四百年港市的街巷</h1>
+      <p>荷蘭人的熱蘭遮城、鄭成功改名的安平鎮、清代的洋行與億載金城，全在這座可以自由走動的小鎮裡。靠近地標會跳出知識卡，也可以直接看旁白導覽。</p>
+      <div class="names">延平街・安平古堡・城垣殘蹟・樹屋・開台天后宮・劍獅埕・運河・億載金城・觀夕平台</div>
+      <div id="loading">正在搭建街景…<div class="bar"><i></i></div></div>
+      <div class="row">
+        <button class="tbtn primary" id="btnWalk" disabled>開始漫遊</button>
+        <button class="tbtn" id="btnWatch" disabled>▶ 觀看導覽影片</button>
+      </div>
+      <div class="keys">WASD 走・Shift 跑・空白鍵跳・F 飛行・數字鍵傳送・T 導覽・H 隱藏介面・M 靜音</div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

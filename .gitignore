@@ -1,0 +1,8 @@
+dist/
+shots/
+video/
+tools/audio/
+tools/audio_bm/
+tools/audio_edge/
+.claude/
+__pycache__/
