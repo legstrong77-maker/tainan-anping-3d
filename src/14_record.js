@@ -84,7 +84,9 @@ async function recordTour(opts) {
       }
       if (fade > 0) { g.fillStyle = `rgba(0,0,0,${fade * 0.9})`; g.fillRect(0, 0, opts.w, opts.h); fade = Math.max(0, fade - dt / 0.5); }
       const url = comp.toDataURL('image/jpeg', 0.92);
-      const p = fetch('/save?dir=' + opts.dir + '&name=' + String(REC.frame).padStart(5, '0') + '.jpg', { method: 'POST', body: url }).finally(() => inflight.delete(p));
+      const name = String(REC.frame).padStart(5, '0') + '.jpg';
+      const send = async () => { for (let k = 0; k < 8; k++) { try { const r = await fetch('/save?dir=' + opts.dir + '&name=' + name, { method: 'POST', body: url }); if (r.ok) return; } catch (e) { } await new Promise(res => setTimeout(res, 300 * (k + 1))); } throw new Error('upload failed ' + name); };
+      const p = send().finally(() => inflight.delete(p));
       inflight.add(p); if (inflight.size >= 6) await Promise.race(inflight);
       REC.frame++;
       if ((TOUR.ending && endT > 5) || REC.frame >= opts.maxFrames) break;

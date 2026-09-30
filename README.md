@@ -28,7 +28,7 @@
 
 - 單一 HTML，只用 cdnjs 的 three.js r128；所有模型、貼圖、招牌都用程式與 Canvas 產生。
 - 環境音用 Web Audio 即時合成。
-- 旁白：[BlueMagpie-TTS](https://github.com/OpenFormosa/BlueMagpie-TTS)（OpenFormosa）內附的授權語者 `hung_yi_lee`。
+- 旁白：Google Gemini TTS，聲音 Rasalgethi（第 0–7 段 `gemini-3.8-flash-tts`，第 8–9 段 `gemini-3.1-flash-tts-preview` 並做 EQ 對齊音色），以本機 faster-whisper 檢查讀音。
 
 ## 建置
 
@@ -36,4 +36,4 @@
 node tools/build.mjs
 ```
 
-原始碼在 `src/`，建置後輸出 `docs/index.html`（GitHub Pages 使用）。重新產生旁白：`tools/bluemagpie_narration.py`。
+原始碼在 `src/`，建置後輸出 `docs/index.html`（GitHub Pages 使用）。重新產生旁白：`tools/gemini_tts_narration.py`（需要 `GEMINI_API_KEY`，金鑰不放在 repo 裡）。錄影與合成影片：`tools/devserver.py`＋頁面內 `recordTour()`，再執行 `tools/make_video.py`。

@@ -129,4 +129,4 @@ function updateTour(dt) {
   $('tourTime').textContent = fmtTime(before + TOUR.t) + ' / ' + fmtTime(TOUR.total);
   if (TOUR.t >= TOUR.dur) { if (!NARR.speaking() || TOUR.t > TOUR.dur * 1.9) { TOUR.hold += dt; if (TOUR.hold > 0.6) tourGo(TOUR.i + 1); } }
 }
-function syncSpeechBtn() { const b = $('tourVoice'); if (!b) return; const has = NARR.hasAudio(0); b.textContent = has ? '旁白：' + (/BlueMagpie/.test(NARR_VOICE) ? 'BlueMagpie-TTS' : /YunJhe/.test(NARR_VOICE) ? '雲哲（台灣男聲）' : (NARR_VOICE || '內建語音')) : (TOUR.speechOn ? '旁白：瀏覽器預覽聲' : '旁白：只有字幕'); b.disabled = has; }
+function syncSpeechBtn() { const b = $('tourVoice'); if (!b) return; const has = NARR.hasAudio(0); b.textContent = has ? '旁白：' + (/Gemini/.test(NARR_VOICE) ? 'Gemini TTS（Rasalgethi）' : /BlueMagpie/.test(NARR_VOICE) ? 'BlueMagpie-TTS' : /YunJhe/.test(NARR_VOICE) ? '雲哲（台灣男聲）' : (NARR_VOICE || '內建語音')) : (TOUR.speechOn ? '旁白：瀏覽器預覽聲' : '旁白：只有字幕'); b.disabled = has; }
