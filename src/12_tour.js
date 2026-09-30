@@ -50,7 +50,7 @@ function splitSubs(text) {
   const res = [];
   for (let s of out) {
     s = s.trim();
-    while (s.length > 30) { let cut = -1; for (let k = Math.floor(s.length / 2); k > 8; k--) if ('，、'.includes(s[k])) { cut = k; break; } if (cut < 0) cut = Math.floor(s.length / 2); res.push(s.slice(0, cut + 1)); s = s.slice(cut + 1); }
+    while (s.length > 30) { const mid = Math.floor(s.length / 2); let cut = -1; for (let d = 0; d < mid - 6 && cut < 0; d++) for (const k of [mid - d, mid + d]) if (k > 6 && k < s.length - 4 && '，、：'.includes(s[k])) { cut = k; break; } if (cut < 0) cut = mid; res.push(s.slice(0, cut + 1)); s = s.slice(cut + 1).replace(/^[，、：。]+/, ''); }
     if (s) res.push(s);
   }
   return res.map(s => s.replace(/[，。；：]$/, ''));

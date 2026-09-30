@@ -73,6 +73,7 @@ wav = OUTMP4.with_suffix(".wav")
 sf.write(str(wav), mix.astype(np.float32), SR, subtype="PCM_16")
 print("mix", round(TOTAL, 1), "s")
 subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(tl["fps"]), "-i", str(FR / "%05d.jpg"), "-i", str(wav),
-                "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
+                "-c:v", "libx264", "-preset", "slow", "-crf", "22", "-pix_fmt", "yuv420p",
+                "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac", "-b:a", "192k",
                 "-shortest", "-movflags", "+faststart", str(OUTMP4)], check=True)
 print("video", OUTMP4)
